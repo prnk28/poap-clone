@@ -77,6 +77,20 @@ class _StartPageState extends State<ActionsPage> {
     );
   }
 
+  _createSchema() async {
+    final schema = Schema();
+    schema.fields.add(SchemaField(name: "Event Name", fieldKind: SchemaFieldKind(kind: Kind.STRING)));
+    schema.fields.add(SchemaField(name: "Date", fieldKind: SchemaFieldKind(kind: Kind.STRING)));
+    schema.fields.add(SchemaField(name: "OLC", fieldKind: SchemaFieldKind(kind: Kind.STRING)));
+    final fields = <String, SchemaFieldKind>{
+      "Event Name": SchemaFieldKind(kind: Kind.STRING),
+      "Date": SchemaFieldKind(kind: Kind.STRING),
+      "OLC": SchemaFieldKind(kind: Kind.STRING),
+    };
+    final resp = await MotorFlutter.to.publishSchema("POAP", fields);
+    print(resp);
+  }
+
   List<DropdownMenuItem<String>> getKindNames() {
     final kindNames = Kind.values.map((e) => e.name).toList();
     return kindNames
